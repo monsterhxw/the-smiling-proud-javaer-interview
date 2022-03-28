@@ -1,2 +1,1 @@
-# The Smiling, Proud Javaer Interview
-The Smiling, Proud Javaer interview course practice
+# The Smiling, Proud Javaer Interview Course Practice
