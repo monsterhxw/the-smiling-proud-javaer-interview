@@ -30,6 +30,9 @@ class BufferPracticeTest {
 
     @BeforeAll
     static void setUp() throws IOException {
+        if (Files.notExists(Paths.get(RESOURCES_PATH))) {
+            Files.createDirectories(Path.of(RESOURCES_PATH));
+        }
         // generate file in resources
         Random random = new Random();
         // default buffer size is 8K
