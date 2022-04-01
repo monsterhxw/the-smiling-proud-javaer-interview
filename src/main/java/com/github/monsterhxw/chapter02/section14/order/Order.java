@@ -1,11 +1,15 @@
 package com.github.monsterhxw.chapter02.section14.order;
 
+import com.github.monsterhxw.chapter02.section14.aspect.TimeUsageAspect;
+import com.github.monsterhxw.chapter02.section14.aspect.annotation.Aspect;
+
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author XueweiHuang
  * @created 2022-03-31
  */
+@Aspect(TimeUsageAspect.class)
 public class Order implements IOrder {
 
     private int state = 0;
