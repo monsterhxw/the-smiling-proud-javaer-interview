@@ -29,9 +29,9 @@ class SortTest {
     private <T> void sortTest(Class<T> clazz, int n) {
         try {
             var inst = clazz.getConstructor().newInstance();
-            var startTime = System.currentTimeMillis();
             if (inst instanceof IMutableSorter) {
                 int[] A = generate(n).stream().mapToInt(x -> x).toArray();
+                var startTime = System.currentTimeMillis();
                 ((IMutableSorter) inst).sort(A);
                 System.out.format("%s time usage = %dms.\n", clazz.getSimpleName(), (System.currentTimeMillis() - startTime));
                 assertSorted(A);
@@ -53,7 +53,7 @@ class SortTest {
     private List<Integer> generate(int n) {
         var res = new ArrayList<Integer>();
         for (int i = 0; i < n; i++) {
-            res.add(RANDOM.nextInt());
+            res.add(RANDOM.nextInt(THRESHOLD));
         }
         return res;
     }

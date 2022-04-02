@@ -12,13 +12,13 @@ public class InsertionSort implements IMutableSorter {
     public void sort(int[] A) {
         for (int i = 0; i < A.length; i++) {
             // 将 A[i] 插入到合适的位置
-            for (int j = i; j - 1 >= 0; j--) {
-                if (A[j] < A[j - 1]) {
-                    swap(A, j, j - 1);
-                } else {
-                    break;
-                }
+            int temp = A[i];
+            int j = i;
+            while (j - 1 >= 0 && temp < A[j - 1]) {
+                A[j] = A[j - 1];
+                j--;
             }
+            A[j] = temp;
         }
     }
 }
