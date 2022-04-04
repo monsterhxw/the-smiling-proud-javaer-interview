@@ -19,11 +19,16 @@ class SortTest {
 
     private static final Random RANDOM = new Random();
 
-    private static final int THRESHOLD = 100_000;
+    private static final int THRESHOLD = 10_000;
 
     @Test
     public void insertionSort() {
         sortTest(InsertionSort.class, THRESHOLD);
+    }
+
+    @Test
+    public void selectionSort() {
+        sortTest(SelectionSort.class, THRESHOLD);
     }
 
     private <T> void sortTest(Class<T> clazz, int n) {

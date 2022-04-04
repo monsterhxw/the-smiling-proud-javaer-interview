@@ -6,5 +6,5 @@ package com.github.monsterhxw.chapter03.section02;
  */
 public interface IMutableSorter {
 
-    void sort(int[] A);
+    void sort(int[] arr);
 }
