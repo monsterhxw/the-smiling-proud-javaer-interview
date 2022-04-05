@@ -31,6 +31,11 @@ class SortTest {
         sortTest(SelectionSort.class, THRESHOLD);
     }
 
+    @Test
+    public void bubbleSort() {
+        sortTest(BubbleSort.class, THRESHOLD);
+    }
+
     private <T> void sortTest(Class<T> clazz, int n) {
         try {
             var inst = clazz.getConstructor().newInstance();
