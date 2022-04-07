@@ -24,7 +24,9 @@ public class MergeSort implements IMutableSorter {
         int mid = l + (r - l) / 2;
         mergeSort(arr, l, mid);
         mergeSort(arr, mid + 1, r);
-        merge(arr, l, mid, r);
+        if (arr[mid] > arr[mid + 1]) {
+            merge(arr, l, mid, r);
+        }
     }
 
     /**
