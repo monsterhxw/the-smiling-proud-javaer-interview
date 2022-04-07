@@ -13,41 +13,42 @@ public class MergeSort implements IMutableSorter {
      */
     @Override
     public void sort(int[] arr) {
-        mergeSort(arr, 0, arr.length - 1);
+        int[] copyArr = Arrays.copyOfRange(arr, 0, arr.length);
+        mergeSort(arr, 0, arr.length - 1, copyArr);
     }
 
-    private void mergeSort(int[] arr, int l, int r) {
+    private void mergeSort(int[] arr, int l, int r, int[] copyArr) {
         if (l >= r) {
             return;
         }
         // 防溢出，(l + r) / 2 = (l + r - l + l) / 2 = (2l + r - l) / 2 = l + (r - l) / 2;
         int mid = l + (r - l) / 2;
-        mergeSort(arr, l, mid);
-        mergeSort(arr, mid + 1, r);
+        mergeSort(arr, l, mid, copyArr);
+        mergeSort(arr, mid + 1, r, copyArr);
         if (arr[mid] > arr[mid + 1]) {
-            merge(arr, l, mid, r);
+            merge(arr, l, mid, r, copyArr);
         }
     }
 
     /**
      * 合并两个有序的区间 arr[l, mid] 和 arr[mid + 1, r]
      */
-    private void merge(int[] arr, int l, int mid, int r) {
-        int[] copyArr = Arrays.copyOfRange(arr, l, r + 1);
+    private void merge(int[] arr, int l, int mid, int r, int[] copyArr) {
+        System.arraycopy(arr, l, copyArr, l, r - l + 1);
         int i = l;
         int j = mid + 1;
         for (int k = l; k <= r; k++) {
             if (i > mid) {
-                arr[k] = copyArr[j - l];
+                arr[k] = copyArr[j];
                 j++;
             } else if (j > r) {
-                arr[k] = copyArr[i - l];
+                arr[k] = copyArr[i];
                 i++;
-            } else if (copyArr[i - l] <= copyArr[j - l]) {
-                arr[k] = copyArr[i - l];
+            } else if (copyArr[i] <= copyArr[j]) {
+                arr[k] = copyArr[i];
                 i++;
-            } else if (copyArr[i - l] > copyArr[j - l]) {
-                arr[k] = copyArr[j - l];
+            } else if (copyArr[i] > copyArr[j]) {
+                arr[k] = copyArr[j];
                 j++;
             }
         }
