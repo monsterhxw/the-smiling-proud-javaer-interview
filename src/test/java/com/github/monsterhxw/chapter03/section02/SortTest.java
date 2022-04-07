@@ -36,6 +36,11 @@ class SortTest {
         sortTest(BubbleSort.class, THRESHOLD);
     }
 
+    @Test
+    public void mergeSort() {
+        sortTest(MergeSort.class, THRESHOLD);
+    }
+
     private <T> void sortTest(Class<T> clazz, int n) {
         try {
             var inst = clazz.getConstructor().newInstance();
