@@ -24,7 +24,7 @@ public class QuickSort implements IMutableSorter {
     }
 
     private int partition(int[] arr, int l, int r) {
-        // arr[l + 1, j] < arr[l] & arr[j + 1, i - 1] >= arr[l]
+        // arr[l + 1, j] < arr[l] & arr[j + 1, i] >= arr[l]
         int j = l;
         for (int i = j + 1; i <= r; i++) {
             if (arr[i] < arr[l]) {
