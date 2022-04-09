@@ -41,6 +41,11 @@ class SortTest {
         sortTest(MergeSort.class, THRESHOLD);
     }
 
+    @Test
+    public void quickSort() {
+        sortTest(QuickSort.class, THRESHOLD);
+    }
+
     private <T> void sortTest(Class<T> clazz, int n) {
         try {
             var inst = clazz.getConstructor().newInstance();
