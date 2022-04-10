@@ -46,6 +46,11 @@ class SortTest {
         sortTest(QuickSort.class, THRESHOLD);
     }
 
+    @Test
+    public void quickSort2Way() {
+        sortTest(QuickSort2Way.class, THRESHOLD);
+    }
+
     private <T> void sortTest(Class<T> clazz, int n) {
         try {
             var inst = clazz.getConstructor().newInstance();
@@ -58,7 +63,17 @@ class SortTest {
 
                 startTime = System.currentTimeMillis();
                 ((IMutableSorter) inst).sort(A);
-                System.out.format("Order: %s time usage = %dms.\n\n", clazz.getSimpleName(), (System.currentTimeMillis() - startTime));
+                System.out.format("Ordered: %s time usage = %dms.\n", clazz.getSimpleName(), (System.currentTimeMillis() - startTime));
+                assertSorted(A);
+
+                if (inst instanceof QuickSort) {
+                    System.out.println();
+                    return;
+                }
+                startTime = System.currentTimeMillis();
+                A = new int[n];
+                ((IMutableSorter) inst).sort(A);
+                System.out.format("Same: %s time usage = %dms.\n\n", clazz.getSimpleName(), (System.currentTimeMillis() - startTime));
                 assertSorted(A);
             }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
