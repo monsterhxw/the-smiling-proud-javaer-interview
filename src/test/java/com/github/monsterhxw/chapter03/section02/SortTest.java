@@ -50,10 +50,15 @@ class SortTest {
         try {
             var inst = clazz.getConstructor().newInstance();
             if (inst instanceof IMutableSorter) {
-                int[] A = generate(n).stream().mapToInt(x -> x).toArray();
+                int[] A = generateRandom(n, THRESHOLD).stream().mapToInt(x -> x).toArray();
                 var startTime = System.currentTimeMillis();
                 ((IMutableSorter) inst).sort(A);
-                System.out.format("%s time usage = %dms.\n", clazz.getSimpleName(), (System.currentTimeMillis() - startTime));
+                System.out.format("Random: %s time usage = %dms.\n", clazz.getSimpleName(), (System.currentTimeMillis() - startTime));
+                assertSorted(A);
+
+                startTime = System.currentTimeMillis();
+                ((IMutableSorter) inst).sort(A);
+                System.out.format("Order: %s time usage = %dms.\n\n", clazz.getSimpleName(), (System.currentTimeMillis() - startTime));
                 assertSorted(A);
             }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -70,10 +75,10 @@ class SortTest {
         }
     }
 
-    private List<Integer> generate(int n) {
+    private List<Integer> generateRandom(int n, int threshold) {
         var res = new ArrayList<Integer>();
         for (int i = 0; i < n; i++) {
-            res.add(RANDOM.nextInt(THRESHOLD));
+            res.add(RANDOM.nextInt(threshold));
         }
         return res;
     }
