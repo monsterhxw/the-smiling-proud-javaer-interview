@@ -43,7 +43,9 @@ public class QuickSort2Way implements IMutableSorter {
             if (i >= j) {
                 break;
             }
-            SortHelper.swap(arr, i, j);
+            if (arr[i] != arr[j]) {
+                SortHelper.swap(arr, i, j);
+            }
             i++;
             j--;
         }
