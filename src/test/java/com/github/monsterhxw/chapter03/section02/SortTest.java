@@ -51,6 +51,11 @@ class SortTest {
         sortTest(QuickSort2Way.class, THRESHOLD);
     }
 
+    @Test
+    public void quickSort3Way() {
+        sortTest(QuickSort3Way.class, THRESHOLD);
+    }
+
     private <T> void sortTest(Class<T> clazz, int n) {
         try {
             var inst = clazz.getConstructor().newInstance();

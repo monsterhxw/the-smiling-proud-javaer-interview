@@ -28,6 +28,7 @@ public class QuickSort2Way implements IMutableSorter {
     }
 
     private int partition2Way(int[] arr, int l, int r) {
+        // Generate a random index between [l, r]
         int p = l + random.nextInt(r - l + 1);
         SortHelper.swap(arr, l, p);
         // arr[l + 1, i - 1] <= v && arr[j + 1, r] >= v
