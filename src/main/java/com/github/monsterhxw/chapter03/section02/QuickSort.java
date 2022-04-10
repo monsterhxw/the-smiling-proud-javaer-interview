@@ -1,10 +1,14 @@
 package com.github.monsterhxw.chapter03.section02;
 
+import java.util.Random;
+
 /**
  * @author XueweiHuang
  * @created 2022-04-09
  */
 public class QuickSort implements IMutableSorter {
+
+    private final Random random = new Random();
 
     /**
      * Time complexity: O(nlogn)
@@ -24,6 +28,9 @@ public class QuickSort implements IMutableSorter {
     }
 
     private int partition(int[] arr, int l, int r) {
+        // Generate a random index between [l, r]
+        int p = l + random.nextInt(r - l + 1);
+        SortHelper.swap(arr, p, l);
         // arr[l + 1, j] < arr[l] & arr[j + 1, i] >= arr[l]
         int j = l;
         for (int i = j + 1; i <= r; i++) {
