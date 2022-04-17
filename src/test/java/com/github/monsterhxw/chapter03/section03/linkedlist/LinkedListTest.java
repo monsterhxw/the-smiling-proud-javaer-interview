@@ -35,7 +35,7 @@ class LinkedListTest {
 
     @Test
     public void testRemove() {
-        Integer remove = linkedList.remove(2);
+        var remove = linkedList.remove(2);
         assertEquals(4, linkedList.size());
         assertEquals(2, remove);
         System.out.println(linkedList);
@@ -43,7 +43,7 @@ class LinkedListTest {
 
     @Test
     public void testRemoveFirst() {
-        Integer removeFirst = linkedList.removeFirst();
+        var removeFirst = linkedList.removeFirst();
         assertEquals(4, linkedList.size());
         assertEquals(4, removeFirst);
         System.out.println(linkedList);
@@ -51,7 +51,7 @@ class LinkedListTest {
 
     @Test
     public void testRemoveLast() {
-        Integer removeLast = linkedList.removeLast();
+        var removeLast = linkedList.removeLast();
         assertEquals(4, linkedList.size());
         assertEquals(0, removeLast);
         System.out.println(linkedList);
