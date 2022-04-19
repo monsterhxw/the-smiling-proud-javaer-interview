@@ -34,7 +34,7 @@ class RemoveLinkedListElementsTest {
 
     @Test
     public void testSolution() {
-        ListNode result = new RemoveLinkedListElements.Solution2().removeElements(head, 6);
+        ListNode result = new RemoveLinkedListElements.Solution().removeElements(head, 6);
         int[] resultVal = new int[5];
         ListNode cur = result;
         int i = 0;
@@ -50,7 +50,23 @@ class RemoveLinkedListElementsTest {
 
     @Test
     public void testSolution2() {
-        ListNode result = new RemoveLinkedListElements.Solution().removeElements(head, 6);
+        ListNode result = new RemoveLinkedListElements.Solution2().removeElements(head, 6);
+        int[] resultVal = new int[5];
+        ListNode cur = result;
+        int i = 0;
+        while (cur != null) {
+            resultVal[i] = cur.val;
+            cur = cur.next;
+            i++;
+        }
+        String s = Arrays.toString(resultVal);
+        System.out.println(s);
+        assertEquals(s, "[1, 2, 3, 4, 5]");
+    }
+
+    @Test
+    public void testSolution3() {
+        ListNode result = new RemoveLinkedListElements.Solution3().removeElements(head, 6);
         int[] resultVal = new int[5];
         ListNode cur = result;
         int i = 0;
