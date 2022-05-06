@@ -39,32 +39,18 @@ public class BinarySearchTree<E extends Comparable<E>> {
      * 向二分搜索树添加新的元素 data
      */
     public void add(E data) {
-        if (root == null) {
-            root = new Node(data);
-        } else {
-            add(root, data);
-        }
+        root = add(root, data);
     }
 
-    private void add(Node node, E data) {
-        if (data.equals(node.data)) {
-            return;
-        } else if (data.compareTo(node.data) < 0) {
-            if (node.left == null) {
-                node.left = new Node(data);
-                size++;
-                return;
-            } else {
-                add(node.left, data);
-            }
-        } else if (data.compareTo(node.data) > 0) {
-            if (node.right == null) {
-                node.right = new Node(data);
-                size++;
-                return;
-            } else {
-                add(node.right, data);
-            }
+    private Node add(Node node, E data) {
+        if (node == null) {
+            return new Node(data);
         }
+        if (data.compareTo(node.data) < 0) {
+            node.left = add(node.left, data);
+        } else if (data.compareTo(node.data) > 0) {
+            node.right = add(node.right, data);
+        }
+        return node;
     }
 }
