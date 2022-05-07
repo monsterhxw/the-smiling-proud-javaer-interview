@@ -44,6 +44,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
     private Node add(Node node, E data) {
         if (node == null) {
+            size++;
             return new Node(data);
         }
         if (data.compareTo(node.data) < 0) {
@@ -52,5 +53,53 @@ public class BinarySearchTree<E extends Comparable<E>> {
             node.right = add(node.right, data);
         }
         return node;
+    }
+
+    public boolean contains(E data) {
+        return contains(root, data);
+    }
+
+    private boolean contains(Node node, E data) {
+        if (node == null) {
+            return false;
+        }
+        if (data.compareTo(node.data) < 0) {
+            return contains(node.left, data);
+        } else if (data.compareTo(node.data) > 0) {
+            return contains(node.right, data);
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * 迭代实现
+     */
+    public void add2(E data) {
+        if (root == null) {
+            size++;
+            root = new Node(data);
+            return;
+        }
+        Node p = root;
+        while (p != null) {
+            if (data.compareTo(p.data) < 0) {
+                if (p.left == null) {
+                    p.left = new Node(data);
+                    size++;
+                    return;
+                } else {
+                    p = p.left;
+                }
+            } else if (data.compareTo(p.data) > 0) {
+                if (p.right == null) {
+                    p.right = new Node(data);
+                } else {
+                    p = p.right;
+                }
+            } else {
+                return;
+            }
+        }
     }
 }
