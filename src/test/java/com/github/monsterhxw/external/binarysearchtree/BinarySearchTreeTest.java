@@ -95,6 +95,64 @@ class BinarySearchTreeTest {
     }
 
     @Test
+    void levelOrder() {
+        for (int num : nums) {
+            bst.add(num);
+        }
+        bst.levelOrder();
+    }
+
+    @Test
+    void minimum() {
+        for (int num : nums) {
+            bst.add(num);
+        }
+        Integer minimum = bst.minimum();
+        int min = Arrays.stream(nums).min().orElse(Integer.MIN_VALUE);
+        assertEquals(min, minimum);
+        System.out.println("minimum is: " + minimum);
+    }
+
+    @Test
+    void maximum() {
+        for (int num : nums) {
+            bst.add(num);
+        }
+        Integer maximum = bst.maximum();
+        int max = Arrays.stream(nums).max().orElse(Integer.MAX_VALUE);
+        assertEquals(max, maximum);
+        System.out.println("maximum is: " + maximum);
+    }
+
+    @Test
+    void removeMin() {
+        for (int num : nums) {
+            bst.add(num);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            Integer minimum = bst.minimum();
+            Integer min = bst.removeMin();
+            System.out.println("minimum is: " + minimum + ", min is: " + min);
+            assertEquals(minimum, min);
+        }
+        assertThrows(IllegalArgumentException.class, () -> bst.removeMin());
+    }
+
+    @Test
+    void removeMax() {
+        for (int num : nums) {
+            bst.add(num);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            Integer maximum = bst.maximum();
+            Integer max = bst.removeMax();
+            System.out.println("minimum is: " + maximum + ", min is: " + max);
+            assertEquals(maximum, max);
+        }
+        assertThrows(IllegalArgumentException.class, () -> bst.removeMax());
+    }
+
+    @Test
     void toStringTest() {
         for (int num : nums) {
             bst.add(num);
