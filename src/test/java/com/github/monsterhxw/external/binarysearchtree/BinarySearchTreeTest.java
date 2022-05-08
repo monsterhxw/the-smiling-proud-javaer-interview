@@ -3,6 +3,8 @@ package com.github.monsterhxw.external.binarysearchtree;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -19,6 +21,7 @@ class BinarySearchTreeTest {
     void setUp() {
         bst = new BinarySearchTree<>();
         nums = new int[]{5, 3, 6, 8, 4, 2};
+        System.out.println("nums is: " + Arrays.toString(nums));
     }
 
     @Test
