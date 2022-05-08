@@ -85,6 +85,32 @@ public class BinarySearchTree<E extends Comparable<E>> {
         preOrder(node.right);
     }
 
+    public void inOrder() {
+        inOrder(root);
+    }
+
+    private void inOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left);
+        System.out.println(node.data);
+        inOrder(node.right);
+    }
+
+    public void postOrder() {
+        postOrder(root);
+    }
+
+    private void postOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.println(node.data);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

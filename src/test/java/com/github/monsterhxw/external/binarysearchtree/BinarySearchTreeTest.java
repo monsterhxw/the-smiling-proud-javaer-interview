@@ -65,6 +65,22 @@ class BinarySearchTreeTest {
     }
 
     @Test
+    void inOrder() {
+        for (int num : nums) {
+            bst.add(num);
+        }
+        bst.inOrder();
+    }
+
+    @Test
+    void postOrder() {
+        for (int num : nums) {
+            bst.add(num);
+        }
+        bst.postOrder();
+    }
+
+    @Test
     void toStringTest() {
         for (int num : nums) {
             bst.add(num);
