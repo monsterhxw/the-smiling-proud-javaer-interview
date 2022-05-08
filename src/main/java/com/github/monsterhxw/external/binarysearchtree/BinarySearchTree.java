@@ -1,5 +1,9 @@
 package com.github.monsterhxw.external.binarysearchtree;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.LinkedList;
+
 /**
  * @author Xuewei Huang
  * @created 2022-05-05
@@ -83,6 +87,24 @@ public class BinarySearchTree<E extends Comparable<E>> {
         System.out.println(node.data);
         preOrder(node.left);
         preOrder(node.right);
+    }
+
+    public void preOrderNotRecursive() {
+        if (root == null) {
+            return;
+        }
+        Deque<Node> stack = new LinkedList<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node curNode = stack.pop();
+            System.out.println(curNode.data);
+            if (curNode.right != null) {
+                stack.push(curNode.right);
+            }
+            if (curNode.left != null) {
+                stack.push(curNode.left);
+            }
+        }
     }
 
     public void inOrder() {

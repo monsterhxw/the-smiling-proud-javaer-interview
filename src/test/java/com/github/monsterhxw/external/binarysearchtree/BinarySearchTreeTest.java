@@ -84,6 +84,17 @@ class BinarySearchTreeTest {
     }
 
     @Test
+    void preOrderNotRecursive() {
+        for (int num : nums) {
+            bst.add(num);
+        }
+        System.out.println("recursive");
+        bst.preOrder();
+        System.out.println("not recursive");
+        bst.preOrderNotRecursive();
+    }
+
+    @Test
     void toStringTest() {
         for (int num : nums) {
             bst.add(num);
