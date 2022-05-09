@@ -214,6 +214,46 @@ public class BinarySearchTree<E extends Comparable<E>> {
         return node;
     }
 
+    public void remove(E data) {
+        root = remove(root, data);
+    }
+
+    private Node remove(Node node, E data) {
+        if (node == null) {
+            return node;
+        }
+        if (data.compareTo(node.data) < 0) {
+            node.left = remove(node.left, data);
+            return node;
+        } else if (data.compareTo(node.data) > 0) {
+            node.right = remove(node.right, data);
+            return node;
+        } else { // data.compareTo(node.data) == 0
+            // 如果只有左孩子节点
+            if (node.right == null) {
+                Node leftNode = node.left;
+                node.left = null;
+                size--;
+                return leftNode;
+            }
+            // 如果只有右孩子
+            if (node.left == null) {
+                Node rightNode = node.right;
+                node.right = null;
+                size--;
+                return rightNode;
+            }
+            // 既有左孩子也有右孩子
+            // 查找和删除大于被删除节点的最小节点
+            Node successor = minimum(node.right);
+            successor.right = removeMin(node.right);
+            successor.left = node.left;
+            node.left = null;
+            node.right = null;
+            return successor;
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

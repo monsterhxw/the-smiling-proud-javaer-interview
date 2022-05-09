@@ -153,6 +153,15 @@ class BinarySearchTreeTest {
     }
 
     @Test
+    void remove() {
+        for (int num : nums) {
+            bst.add(num);
+        }
+        bst.remove(3);
+        assertFalse(bst.contains(3));
+    }
+
+    @Test
     void toStringTest() {
         for (int num : nums) {
             bst.add(num);
