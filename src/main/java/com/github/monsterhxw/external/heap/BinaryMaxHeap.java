@@ -39,6 +39,35 @@ public class BinaryMaxHeap<E extends Comparable<E>> {
         }
     }
 
+    public E findMax() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("Can not find max data when heap is empty.");
+        }
+        return data.get(0);
+    }
+
+    public E extractMax() {
+        E max = findMax();
+        swap(data, 0, data.size() - 1);
+        data.remove(data.size() - 1);
+        siftDown(0);
+        return max;
+    }
+
+    private void siftDown(int k) {
+        while (leftChild(k) < data.size()) {
+            int j = leftChild(k);
+            if (j + 1 < data.size() && data.get(j + 1).compareTo(data.get(j)) > 0) {
+                j++;
+            }
+            if (data.get(k).compareTo(data.get(j)) >= 0) {
+                break;
+            }
+            swap(data, k, j);
+            k = j;
+        }
+    }
+
     private int parent(int index) {
         if (index <= 0) {
             throw new IllegalArgumentException("index must be greater than 0.");
