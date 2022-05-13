@@ -19,6 +19,14 @@ public class BinaryMaxHeap<E extends Comparable<E>> {
         data = new ArrayList<>(capacity);
     }
 
+    public BinaryMaxHeap(E[] arr) {
+        this(arr.length);
+        heapify(arr, arr.length);
+        for (int i = 0; i < arr.length; i++) {
+            data.add(arr[i]);
+        }
+    }
+
     public int size() {
         return data.size();
     }
@@ -53,6 +61,14 @@ public class BinaryMaxHeap<E extends Comparable<E>> {
         siftDown(0);
         return max;
     }
+
+    public E replace(E e) {
+        E max = findMax();
+        data.set(0, e);
+        siftDown(0);
+        return max;
+    }
+
 
     private void siftDown(int k) {
         while (leftChild(k) < data.size()) {
@@ -95,5 +111,38 @@ public class BinaryMaxHeap<E extends Comparable<E>> {
         E temp = data.get(i);
         data.set(i, data.get(j));
         data.set(j, temp);
+    }
+
+    private void heapify(E[] arr, int size) {
+        // 找到最后一个非叶子节点索引
+        int lastNonLeafNodeIdx = parent(size - 1);
+        for (int i = lastNonLeafNodeIdx; i >= 0; i--) {
+            siftDown(arr, i, size);
+        }
+    }
+
+    private void siftDown(E[] arr, int k, int size) {
+        while (leftChild(k) < size) {
+            int j = leftChild(k);
+            if (j + 1 < size && arr[j + 1].compareTo(arr[j]) > 0) {
+                j++;
+            }
+            if (arr[k].compareTo(arr[j]) >= 0) {
+                break;
+            } else {
+                swap(arr, k, j);
+                k = j;
+            }
+        }
+    }
+
+    private void swap(E[] arr, int i, int j) {
+        int size = arr.length;
+        if (i < 0 || i >= size || j < 0 || j >= size) {
+            throw new IllegalArgumentException("Index is illegal.");
+        }
+        E temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
