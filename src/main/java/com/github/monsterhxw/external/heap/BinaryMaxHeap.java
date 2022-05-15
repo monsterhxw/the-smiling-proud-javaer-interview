@@ -69,7 +69,6 @@ public class BinaryMaxHeap<E extends Comparable<E>> {
         return max;
     }
 
-
     private void siftDown(int k) {
         while (leftChild(k) < data.size()) {
             int j = leftChild(k);
