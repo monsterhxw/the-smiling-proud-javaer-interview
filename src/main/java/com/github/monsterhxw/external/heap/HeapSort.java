@@ -7,9 +7,14 @@ package com.github.monsterhxw.external.heap;
 public class HeapSort {
 
     public static <T extends Comparable<T>> void sort(T[] data) {
-        for (int i = 0; i < data.length - 1; i++) {
-            heapify(data, data.length - i);
-            swap(data, 0, data.length - i - 1);
+        // build max heap
+        // Time complexity: O(n)
+        heapify(data, data.length);
+        // swap and sift down root
+        // Time complexity: O(nlogn)
+        for (int i = data.length - 1; i >= 0; i--) {
+            swap(data, 0, i);
+            siftDown(data, i, 0);
         }
     }
 

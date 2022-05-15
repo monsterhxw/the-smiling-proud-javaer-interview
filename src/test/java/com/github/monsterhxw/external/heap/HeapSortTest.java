@@ -15,11 +15,9 @@ class HeapSortTest {
 
     @Test
     void sort() {
-        Integer[] nums = generateIntegerArray(10_000);
-        System.out.println("Before sort: " + Arrays.toString(nums));
+        Integer[] nums = generateIntegerArray(1_000_000);
         HeapSort.sort(nums);
         assertDoesNotThrow(() -> testSortByOrder(nums));
-        System.out.println("After sort: " + Arrays.toString(nums));
     }
 
     Integer[] generateIntegerArray(int size) {
