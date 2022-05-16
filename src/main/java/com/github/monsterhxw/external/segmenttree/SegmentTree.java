@@ -22,24 +22,26 @@ public class SegmentTree<E> {
         }
         tree = (E[]) new Object[4 * arr.length];
         merger = merger;
-        buildSegmentTree(0, 0, data.length - 1, merger);
+        buildSegmentTree(tree, 0, data, 0, data.length - 1, merger);
     }
 
     /**
      * 在 treeIndex 的位置创建表示区间 [l, r] 的线段树
      */
-    private void buildSegmentTree(int treeIndex, int left, int right, BiFunction<E, E, E> merger) {
+    private void buildSegmentTree(E[] tree, int treeIndex, E[] data, int left, int right, BiFunction<E, E, E> merger) {
         if (left == right) {
             tree[treeIndex] = data[left];
             return;
         }
 
-        int leftTreeIndex = leftChild(treeIndex);
-        int rightTreeIndex = rightChild(treeIndex);
-
         int mid = left + (right - left) / 2;
-        buildSegmentTree(leftTreeIndex, left, mid, merger);
-        buildSegmentTree(rightTreeIndex, mid + 1, right, merger);
+
+        int leftTreeIndex = leftChild(treeIndex);
+        buildSegmentTree(tree, leftTreeIndex, data, left, mid, merger);
+
+        int rightTreeIndex = rightChild(treeIndex);
+        buildSegmentTree(tree, rightTreeIndex, data, mid + 1, right, merger);
+
         tree[treeIndex] = merger.apply(tree[leftTreeIndex], tree[rightTreeIndex]);
     }
 

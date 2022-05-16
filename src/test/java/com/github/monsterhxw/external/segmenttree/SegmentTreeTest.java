@@ -12,8 +12,13 @@ class SegmentTreeTest {
 
     @Test
     void test() {
-        Integer[] nums = {-2, 0, 3, -5, 2, -1};
-        SegmentTree<Integer> segmentTree = new SegmentTree<>(nums, Integer::sum);
+        Integer[] numbs = {1, 3, -2, 8, -7};
+        SegmentTree<Integer> segmentTree = new SegmentTree<>(numbs, Integer::sum);
+        assertEquals(expected(), segmentTree.toString());
         System.out.println(segmentTree);
+    }
+
+    private String expected() {
+        return "[3, 2, 1, 4, -2, 8, -7, 1, 3, null, null, null, null, null, null, null, null, null, null, null]";
     }
 }
