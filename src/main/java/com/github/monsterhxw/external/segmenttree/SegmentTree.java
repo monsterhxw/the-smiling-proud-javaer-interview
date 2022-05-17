@@ -73,7 +73,6 @@ public class SegmentTree<E> {
         }
     }
 
-
     private int leftChild(int index) {
         return 2 * index + 1;
     }
