@@ -45,6 +45,35 @@ public class SegmentTree<E> {
         tree[treeIndex] = merger.apply(tree[leftTreeIndex], tree[rightTreeIndex]);
     }
 
+    /**
+     * 返回区间 [queryL, queryR] 的值
+     */
+    public E query(int queryL, int queryR) {
+        if (queryL < 0 || queryL >= data.length || queryR < 0 || queryR >= data.length || queryL > queryR) {
+            throw new IllegalArgumentException("Index is illegal.");
+        }
+        return query(0, 0, data.length - 1, queryL, queryR);
+    }
+
+    private E query(int treeIndex, int left, int right, int queryL, int queryR) {
+        if (queryL == left && queryR == right) {
+            return tree[treeIndex];
+        }
+        int mid = left + (right - left) / 2;
+        int leftTreeIndex = leftChild(treeIndex);
+        int rightTreeIndex = rightChild(treeIndex);
+        if (queryL > mid) {
+            return query(rightTreeIndex, mid + 1, right, queryL, queryR);
+        } else if (queryR <= mid) {
+            return query(leftTreeIndex, left, mid, queryL, queryR);
+        } else {
+            E leftResult = query(leftTreeIndex, left, mid, queryL, mid);
+            E rightResult = query(rightTreeIndex, mid + 1, right, mid + 1, queryR);
+            return merger.apply(leftResult, rightResult);
+        }
+    }
+
+
     private int leftChild(int index) {
         return 2 * index + 1;
     }
