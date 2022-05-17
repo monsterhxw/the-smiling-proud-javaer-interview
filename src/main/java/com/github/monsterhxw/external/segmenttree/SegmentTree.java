@@ -21,7 +21,7 @@ public class SegmentTree<E> {
             this.data[i] = arr[i];
         }
         tree = (E[]) new Object[4 * arr.length];
-        merger = merger;
+        this.merger = merger;
         buildSegmentTree(tree, 0, data, 0, data.length - 1, merger);
     }
 
@@ -71,6 +71,33 @@ public class SegmentTree<E> {
             E rightResult = query(rightTreeIndex, mid + 1, right, mid + 1, queryR);
             return merger.apply(leftResult, rightResult);
         }
+    }
+
+    public void set(int index, E e) {
+        if (index < 0 || index >= data.length) {
+            throw new IllegalArgumentException("Index is illegal.");
+        }
+        data[index] = e;
+        set(0, 0, data.length - 1, index, e);
+    }
+
+    /**
+     * Time complexity: O(logn)
+     */
+    private void set(int treeIndex, int l, int r, int index, E e) {
+        if (l == r) {
+            tree[treeIndex] = e;
+            return;
+        }
+        int mid = l + (r - l) / 2;
+        int leftTreeIndex = leftChild(treeIndex);
+        int rightTreeIndex = rightChild(treeIndex);
+        if (index > mid) {
+            set(rightTreeIndex, mid + 1, r, index, e);
+        } else { // index <= mid
+            set(leftTreeIndex, l, mid, index, e);
+        }
+        tree[treeIndex] = merger.apply(tree[leftTreeIndex], tree[rightTreeIndex]);
     }
 
     private int leftChild(int index) {

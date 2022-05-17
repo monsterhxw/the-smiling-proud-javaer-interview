@@ -1,5 +1,6 @@
 package com.github.monsterhxw.external.segmenttree;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.BiFunction;
@@ -12,11 +13,18 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SegmentTreeTest {
 
-    private final Integer[] numbs = {1, 3, -2, 8, -7};
+    private Integer[] numbs;
 
-    private final BiFunction<Integer, Integer, Integer> merger = (x1, x2) -> x1 + x2;
+    private BiFunction<Integer, Integer, Integer> merger;
 
-    private final SegmentTree<Integer> segmentTree = new SegmentTree<>(numbs, merger);
+    private SegmentTree<Integer> segmentTree;
+
+    @BeforeEach
+    void setup() {
+        numbs = new Integer[]{1, 3, -2, 8, -7};
+        merger = (x1, x2) -> x1 + x2;
+        segmentTree = new SegmentTree<>(numbs, merger);
+    }
 
     @Test
     void create() {
@@ -30,6 +38,13 @@ class SegmentTreeTest {
         System.out.println(segmentTree.query(0, 4));
         assertEquals(4, segmentTree.query(0, 1));
         System.out.println(segmentTree.query(0, 1));
+    }
+
+    @Test
+    void set() {
+        segmentTree.set(4, 7);
+        assertEquals("[17, 2, 15, 4, -2, 8, 7, 1, 3, null, null, null, null, null, null, null, null, null, null, null]", segmentTree.toString());
+        System.out.println(segmentTree);
     }
 
     private String expected() {
