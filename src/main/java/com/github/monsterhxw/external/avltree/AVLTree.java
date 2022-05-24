@@ -106,8 +106,35 @@ public class AVLTree<K extends Comparable<K>, V> {
             if (Math.abs(balanceFactor) > 1) {
                 System.out.println("unbalanced: " + balanceFactor);
             }
+            // 平衡维护
+            if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0) {
+                return rightRotate(node);
+            }
             return node;
         }
+    }
+
+    // 对节点 y 进行向右旋转操作，返回旋转后新的根节点 x
+    //        y                              x
+    //       / \                           /   \
+    //      x   T4     向右旋转 (y)        z     y
+    //     / \       - - - - - - - ->    / \   / \
+    //    z   T3                       T1  T2 T3 T4
+    //   / \
+    // T1   T2
+    private Node rightRotate(Node y) {
+        Node x = y.left;
+        Node T3 = x.right;
+
+        // 向右旋转
+        x.right = y;
+        y.left = T3;
+
+        // 更新 height
+        y.height = 1 + Math.max(getHeight(y.left), getHeight(y.right));
+        x.height = 1 + Math.max(getHeight(x.left), getHeight(x.right));
+
+        return x;
     }
 
     /**
