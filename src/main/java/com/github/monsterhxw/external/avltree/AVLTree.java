@@ -103,12 +103,24 @@ public class AVLTree<K extends Comparable<K>, V> {
             node.height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
             // 计算平衡因子
             int balanceFactor = getBalanceFactor(node);
-            if (Math.abs(balanceFactor) > 1) {
-                System.out.println("unbalanced: " + balanceFactor);
-            }
             // 平衡维护
+            // left left
             if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0) {
                 return rightRotate(node);
+            }
+            // right right
+            if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0) {
+                return leftRotate(node);
+            }
+            // left right
+            if (balanceFactor > 1 && getBalanceFactor(node.left) < 0) {
+                node.left = leftRotate(node.left);
+                return rightRotate(node);
+            }
+            // right left
+            if (balanceFactor < -1 && getBalanceFactor(node.right) > 0) {
+                node.right = rightRotate(node.right);
+                return leftRotate(node);
             }
             return node;
         }
@@ -129,6 +141,29 @@ public class AVLTree<K extends Comparable<K>, V> {
         // 向右旋转
         x.right = y;
         y.left = T3;
+
+        // 更新 height
+        y.height = 1 + Math.max(getHeight(y.left), getHeight(y.right));
+        x.height = 1 + Math.max(getHeight(x.left), getHeight(x.right));
+
+        return x;
+    }
+
+    // 对节点y进行向左旋转操作，返回旋转后新的根节点x
+    //    y                             x
+    //  /  \                          /   \
+    // T1   x      向左旋转 (y)       y     z
+    //     / \   - - - - - - - ->   / \   / \
+    //   T2  z                     T1 T2 T3 T4
+    //      / \
+    //     T3 T4
+    private Node leftRotate(Node y) {
+        Node x = y.right;
+        Node T2 = x.left;
+
+        // 向左旋转
+        x.left = y;
+        y.right = T2;
 
         // 更新 height
         y.height = 1 + Math.max(getHeight(y.left), getHeight(y.right));
