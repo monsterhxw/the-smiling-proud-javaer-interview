@@ -126,6 +126,123 @@ public class AVLTree<K extends Comparable<K>, V> {
         }
     }
 
+    public V remove(K key) {
+        Node node = getNode(root, key);
+        if (node != null) {
+            root = remove(root, key);
+            return node.value;
+        }
+        return null;
+    }
+
+    private Node remove(Node node, K key) {
+        if (node == null) {
+            return null;
+        }
+        Node retNode;
+        if (key.compareTo(node.key) < 0) {
+            node.left = remove(node.left, key);
+            // return node;
+            retNode = node;
+        } else if (key.compareTo(node.key) > 0) {
+            node.right = remove(node.right, key);
+            // return node;
+            retNode = node;
+        } else { // key.compareTo(node.key) == 0
+            // 待删除节点左子树为空的情况
+            if (node.left == null) {
+                Node rightNode = node.right;
+                node.right = null;
+                size--;
+                // return rightNode;
+                retNode = rightNode;
+            }
+            // 待删除节点优子树为空的情况
+            else if (node.right == null) {
+                Node leftNode = node.left;
+                node.left = null;
+                size--;
+                // return leftNode;
+                retNode = leftNode;
+            }
+            // 待删除节点左右子树均不为空的情况
+            else {
+                // 找到比待删除节点大的最小节点，即待删除节点右子树的最小节点
+                Node successor = minimum(node.right);
+                // successor.right = removeMin(node.right);
+                successor.right = remove(node.right, successor.key);
+                successor.left = node.left;
+                node.left = node.right = null;
+                // return successor;
+                retNode = successor;
+            }
+        }
+        if (retNode == null) {
+            return null;
+        }
+        // 更新 height
+        retNode.height = 1 + Math.max(getHeight(retNode.left), getHeight(retNode.right));
+        // 计算平衡因子
+        int balanceFactor = getBalanceFactor(retNode);
+        // 平衡维护
+        // LL
+        if (balanceFactor > 1 && getBalanceFactor(retNode.left) >= 0) {
+            return rightRotate(retNode);
+        }
+        // RR
+        if (balanceFactor < -1 && getBalanceFactor(retNode.right) <= 0) {
+            return leftRotate(retNode);
+        }
+        // LR
+        if (balanceFactor > 1 && getBalanceFactor(retNode.left) < 0) {
+            retNode.left = leftRotate(retNode.left);
+            return rightRotate(retNode);
+        }
+        // RL
+        if (balanceFactor < -1 && getBalanceFactor(retNode.right) > 0) {
+            retNode.right = rightRotate(retNode.right);
+            return leftRotate(retNode);
+        }
+        return retNode;
+    }
+
+    // 返回以 node 为根的二分搜索树的最小值所在的节点
+    private Node minimum(Node node) {
+        if (node.left == null) {
+            return node;
+        }
+        return minimum(node.left);
+    }
+
+    // 删除以 node 为根的二分搜索树中的最小节点
+    // 返回删除节点后新的二分搜索树的根
+    private Node removeMin(Node node) {
+        if (node.left == null) {
+            Node rightNode = node.right;
+            node.right = null;
+            size--;
+            return rightNode;
+        }
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+    /**
+     * 返回以 node 为根节点的二分搜索树中，key 所在的节点
+     */
+    private Node getNode(Node node, K key) {
+        if (node == null) {
+            return null;
+        }
+        if (key.compareTo(node.key) == 0) {
+            return node;
+        } else if (key.compareTo(node.key) < 0) {
+            return getNode(node.left, key);
+        } else {
+            return getNode(node.right, key);
+        }
+    }
+
     // 对节点 y 进行向右旋转操作，返回旋转后新的根节点 x
     //        y                              x
     //       / \                           /   \
@@ -170,6 +287,23 @@ public class AVLTree<K extends Comparable<K>, V> {
         x.height = 1 + Math.max(getHeight(x.left), getHeight(x.right));
 
         return x;
+    }
+
+    public boolean contains(K key) {
+        return getNode(root, key) != null;
+    }
+
+    public V get(K key) {
+        Node node = getNode(root, key);
+        return node == null ? null : node.value;
+    }
+
+    public void set(K key, V newValue) {
+        Node node = getNode(root, key);
+        if (node == null) {
+            throw new IllegalArgumentException(key + "doesn't exist!");
+        }
+        node.value = newValue;
     }
 
     /**
