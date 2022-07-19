@@ -116,6 +116,24 @@ public class RebBlackTree<K extends Comparable<K>, V> {
         }
     }
 
+    //   node                     x
+    //  /   \     左旋转         /  \
+    // T1   x   --------->   node   T3
+    //     / \              /   \
+    //    T2 T3            T1   T2
+    private Node leftRotate(Node node) {
+        Node x = node.right;
+
+        // 左旋转
+        node.right = x.left;
+        x.left = node;
+
+        x.color = node.color;
+        node.color = RED;
+
+        return x;
+    }
+
     /**
      * 返回以 node 为根的二分搜索树的最小值所在的节点
      */
