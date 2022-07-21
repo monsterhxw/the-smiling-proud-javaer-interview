@@ -73,6 +73,16 @@ public class RebBlackTree<K extends Comparable<K>, V> {
     }
 
     /**
+     * 颜色翻转
+     */
+    private void flipColors(Node node) {
+        node.color = RED;
+
+        node.left.color = BLACK;
+        node.right.color = BLACK;
+    }
+
+    /**
      * 向二分搜索树中添加新元素 (key, value)
      */
     public void add(K key, V value) {
@@ -127,6 +137,24 @@ public class RebBlackTree<K extends Comparable<K>, V> {
         // 左旋转
         node.right = x.left;
         x.left = node;
+
+        x.color = node.color;
+        node.color = RED;
+
+        return x;
+    }
+
+    //     node                   x
+    //    /   \     右旋转       /  \
+    //   x    T2   ------->   y   node
+    //  / \                       /  \
+    // y  T1                     T1  T2
+    private Node rightRotate(Node node) {
+        Node x = node.left;
+
+        // 右旋转
+        node.left = x.right;
+        x.right = node;
 
         x.color = node.color;
         node.color = RED;
