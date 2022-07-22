@@ -117,7 +117,7 @@ public class RebBlackTree<K extends Comparable<K>, V> {
             node = rightRotate(node);
         }
 
-        if (isRed(node.left) && isRed(node.righta)) {
+        if (isRed(node.left) && isRed(node.right)) {
             flipColors(node);
         }
 
