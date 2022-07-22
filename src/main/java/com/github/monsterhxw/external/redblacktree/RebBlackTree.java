@@ -98,6 +98,7 @@ public class RebBlackTree<K extends Comparable<K>, V> {
     private Node add(Node node, K key, V value) {
         if (node == null) {
             size++;
+            // 默认插入红色节点
             return new Node(key, value);
         }
         if (key.compareTo(node.key) < 0) {
@@ -107,6 +108,19 @@ public class RebBlackTree<K extends Comparable<K>, V> {
         } else { // key.compareTo(node.key) == 0
             node.value = value;
         }
+
+        if (isRed(node.right) && !isRed(node.right)) {
+            node = leftRotate(node);
+        }
+
+        if (isRed(node.left) && isRed(node.left.left)) {
+            node = rightRotate(node);
+        }
+
+        if (isRed(node.left) && isRed(node.left)) {
+            flipColors(node);
+        }
+
         return node;
     }
 
