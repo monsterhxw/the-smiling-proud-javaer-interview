@@ -48,6 +48,8 @@ public class LockFreeStack<V> {
                 return null;
             }
             Node<V> next = headNode.next;
+            //            head.compareAndSet(headNode, next, stamp, stamp + 1);
+            //            return headNode.value;
             if (head.compareAndSet(headNode, next, stamp, stamp + 1)) {
                 return headNode.value;
             }
